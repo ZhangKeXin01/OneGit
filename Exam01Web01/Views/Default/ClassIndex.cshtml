@@ -1,0 +1,67 @@
+﻿@Model List<class>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ClassIndex</title>
+</head>
+<body>
+    <div> 
+        @using (Html.BeginForm())
+        {
+
+        <input id="cname" type="text" /><input id="Submit1" type="submit" value="搜索" />
+        <table>
+            <tr>
+                <td>班级id</td>
+                <td>班级名称</td>
+                <td>班主任</td>
+                <td>班级描述</td>
+                <td>操作</td>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.ClassName</td>
+                    <td>@item.Bzr</td>
+                    <td>@item.Remark</td>+
+                    <td><input id="Button1" type="button" value="学生明细" onclick="location.href = '/Default/StudentIndexByCid?cid='+@item.Id"/></td>
+                </tr>
+                }
+        </table>
+
+        }
+        <input id="pageIndex" type="hidden" value="1"/>
+        <input id="Button1" type="button" value="首页" onclick="First()"/>
+        <input id="Button1" type="button" value="上页" onclick="Last()"/>
+        <input id="Button1" type="button" value="下页" onclick="Next()"/>
+        <input id="Button1" type="button" value="尾页" onclick="Final()"/>
+
+
+    </div>
+</body>
+</html>
+    <script>
+        function First() {
+            location.href = "/Default/ClassIndex?cname=" + $("#cname").val + "&pageSize=5&pageIndex=1";
+        }
+        function Last() {
+            var pageIndex = Number($("#pageIndex").val());
+            pageIndex--;
+            location.href = "/Default/ClassIndex?cname=" + $("#cname").val + "&pageSize=5&pageIndex="+pageIndex;
+        }
+        function Next() {
+            var pageIndex = Number($("#pageIndex").val());
+            pageIndex++;
+            location.href = "/Default/ClassIndex?cname=" + $("#cname").val + "&pageSize=5&pageIndex="+pageIndex;
+        }
+        function Final() {
+            location.href = "/Default/ClassIndex?cname=" + $("#cname").val + "&pageSize=5&pageIndex=5";
+        }
+    </script>

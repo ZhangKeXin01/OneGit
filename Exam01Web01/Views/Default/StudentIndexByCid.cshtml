@@ -1,0 +1,68 @@
+﻿@Model List<Student>
+    @{
+        Layout = null;
+    }
+
+    <!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>StudentIndexByCid</title>
+    </head>
+    <body>
+        <div>
+            @using (Html.BeginForm())
+            {
+
+                <input id="sname" type="text" /><input id="Submit1" type="submit" value="搜索" />
+                <table>
+                    <tr>
+                        <td>学生Id</td>
+                        <td>姓名</td>
+                        <td>性别</td>
+                        <td>手机号</td>
+                        <td>邮箱</td>
+                        <td>家庭住址</td>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.Name</td>
+                            <td>@(item.Sex ? "男" : "女")</td>
+                            <td>@item.Phone</td>
+                            <td>@item.Email</td>
+                            <td>@item.Address</td>
+                            
+                        </tr>
+                    }
+                </table>
+
+            }
+            <input id="pageIndex" type="hidden" value="1" />
+            <input id="Button1" type="button" value="首页" onclick="First()" />
+            <input id="Button1" type="button" value="上页" onclick="Last()" />
+            <input id="Button1" type="button" value="下页" onclick="Next()" />
+            <input id="Button1" type="button" value="尾页" onclick="Final()" />
+        </div>
+    </body>
+</html>
+<script>
+    function First() {
+        location.href = "/Default/StudentIndex?cname=" + $("#sname").val + "&pageSize=5&pageIndex=1";
+    }
+    function Last() {
+        var pageIndex = Number($("#pageIndex").val());
+        pageIndex--;
+        location.href = "/Default/StudentIndex?cname=" + $("#sname").val + "&pageSize=5&pageIndex=" + pageIndex;
+    }
+    function Next() {
+        var pageIndex = Number($("#pageIndex").val());
+        pageIndex++;
+        location.href = "/Default/StudentIndex?cname=" + $("#sname").val + "&pageSize=5&pageIndex=" + pageIndex;
+    }
+    function Final() {
+        location.href = "/Default/StudentIndex?cname=" + $("#sname").val + "&pageSize=5&pageIndex=5";
+    }
+</script>
